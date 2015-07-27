@@ -12,14 +12,17 @@ The position from the UV maintainers appears to be that there will not be a supp
 
 - Add this repository as a submodules (libuv itself is pulled in as a submodule of this repository), or archive the contents of this repository and it's submodules and copy them into your own project. Always use the branch corresponding to the libuv version being targeted.
 - Add lines similar to the following to your `CMakeLists.txt` file:
-    ```cmake    
-    add_subdirectory(vendor/libuv)
+
+```cmake    
+add_subdirectory(vendor/libuv)
 include_directories(vendor/libuv/libuv-1.6.1/include)
-    ```
+```
 - The `uv` target is produced by the `CMakeLists.txt` file - it can be linked using the following:
-    ```cmake
-    target_link_libraries(my_target uv)
-    ```
+
+```cmake
+target_link_libraries(my_target uv)
+```
+
 - By default the tests and benchmarks for libuv are not built. To enable them, set the `LIBUV_BUILD_TESTS` option to `ON`.
 
 ### Contributing
