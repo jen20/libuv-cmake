@@ -3,7 +3,7 @@ project(libuv C)
 
 option(LIBUV_BUILD_TESTS "builds libuv tests and benchmarks if set to ON" OFF)
 
-set(LIBUVDIR libuv-1.6.1)
+set(LIBUVDIR libuv)
 
 include_directories(${LIBUVDIR}/include ${LIBUVDIR}/src)
 set(SOURCES
