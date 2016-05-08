@@ -131,7 +131,7 @@ else()
             ${LIBUVDIR}/src/unix/sunos.c
             )
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "AIX")
         add_definitions(-D_ALL_SOURCE -D_XOPEN_SOURCE=500 -D_LINUX_SOURCE_COMPAT)
         set (SOURCES ${SOURCES}
@@ -139,7 +139,7 @@ else()
             )
         find_library(PERFSTAT_LIB NAMES perfstat)
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "DragonFlyBSD")
         set (SOURCES ${SOURCES}
             ${LIBUVDIR}/src/unix/freebsd.c
@@ -151,15 +151,15 @@ else()
             ${LIBUVDIR}/src/unix/openbsd.c
             )
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
         set (SOURCES ${SOURCES}
             ${LIBUVDIR}/src/unix/netbsd.c
             )
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "DragonFlyBSD" OR
-        ${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
+            ${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
         set (SOURCES ${SOURCES}
             src/unix/kqueue.c
             )
@@ -176,7 +176,7 @@ else()
         find_library(RT_LIB NAMES rt)
         target_link_libraries(uv ${DL_LIB} ${RT_LIB})
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "SunOS")
         find_library(KSTAT_LIB NAMES kstat)
         find_library(NSL_LIB NAMES nsl)
@@ -189,9 +189,9 @@ else()
         find_library(PERFSTAT_LIB NAMES perfstat)
         target_link_libraries(uv ${PERFSTAT_LIB})
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "DragonFlyBSD" OR
-        ${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
+            ${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
         find_library(KVM_LIB NAMES kvm)
         target_link_libraries(uv ${KVM_LIB})
     endif()
@@ -205,27 +205,34 @@ if(LIBUV_BUILD_TESTS)
         ${LIBUVDIR}/test/run-tests.c
         ${LIBUVDIR}/test/runner.c
         ${LIBUVDIR}/test/runner.h
-        ${LIBUVDIR}/test/test-get-loadavg.c
         ${LIBUVDIR}/test/task.h
         ${LIBUVDIR}/test/test-active.c
-        ${LIBUVDIR}/test/test-async.c
         ${LIBUVDIR}/test/test-async-null-cb.c
-        ${LIBUVDIR}/test/test-callback-stack.c
+        ${LIBUVDIR}/test/test-async.c
+        ${LIBUVDIR}/test/test-barrier.c
         ${LIBUVDIR}/test/test-callback-order.c
+        ${LIBUVDIR}/test/test-callback-stack.c
         ${LIBUVDIR}/test/test-close-fd.c
         ${LIBUVDIR}/test/test-close-order.c
+        ${LIBUVDIR}/test/test-condvar.c
         ${LIBUVDIR}/test/test-connection-fail.c
         ${LIBUVDIR}/test/test-cwd-and-chdir.c
         ${LIBUVDIR}/test/test-default-loop-close.c
         ${LIBUVDIR}/test/test-delayed-accept.c
-        ${LIBUVDIR}/test/test-error.c
+        ${LIBUVDIR}/test/test-dlerror.c
+        ${LIBUVDIR}/test/test-eintr-handling.c
         ${LIBUVDIR}/test/test-embed.c
         ${LIBUVDIR}/test/test-emfile.c
+        ${LIBUVDIR}/test/test-error.c
         ${LIBUVDIR}/test/test-fail-always.c
-        ${LIBUVDIR}/test/test-fs.c
         ${LIBUVDIR}/test/test-fs-event.c
+        ${LIBUVDIR}/test/test-fs-poll.c
+        ${LIBUVDIR}/test/test-fs.c
         ${LIBUVDIR}/test/test-get-currentexe.c
+        ${LIBUVDIR}/test/test-get-loadavg.c
+        ${LIBUVDIR}/test/test-get-loadavg.c
         ${LIBUVDIR}/test/test-get-memory.c
+        ${LIBUVDIR}/test/test-get-passwd.c
         ${LIBUVDIR}/test/test-getaddrinfo.c
         ${LIBUVDIR}/test/test-getnameinfo.c
         ${LIBUVDIR}/test/test-getsockname.c
@@ -233,34 +240,37 @@ if(LIBUV_BUILD_TESTS)
         ${LIBUVDIR}/test/test-homedir.c
         ${LIBUVDIR}/test/test-hrtime.c
         ${LIBUVDIR}/test/test-idle.c
+        ${LIBUVDIR}/test/test-ip4-addr.c
         ${LIBUVDIR}/test/test-ip6-addr.c
-        ${LIBUVDIR}/test/test-ipc.c
         ${LIBUVDIR}/test/test-ipc-send-recv.c
+        ${LIBUVDIR}/test/test-ipc.c
         ${LIBUVDIR}/test/test-list.h
-        ${LIBUVDIR}/test/test-loop-handles.c
         ${LIBUVDIR}/test/test-loop-alive.c
         ${LIBUVDIR}/test/test-loop-close.c
+        ${LIBUVDIR}/test/test-loop-configure.c
+        ${LIBUVDIR}/test/test-loop-handles.c
         ${LIBUVDIR}/test/test-loop-stop.c
         ${LIBUVDIR}/test/test-loop-time.c
-        ${LIBUVDIR}/test/test-loop-configure.c
-        ${LIBUVDIR}/test/test-walk-handles.c
-        ${LIBUVDIR}/test/test-watcher-cross-stop.c
         ${LIBUVDIR}/test/test-multiple-listen.c
+        ${LIBUVDIR}/test/test-mutexes.c
         ${LIBUVDIR}/test/test-osx-select.c
         ${LIBUVDIR}/test/test-pass-always.c
         ${LIBUVDIR}/test/test-ping-pong.c
         ${LIBUVDIR}/test/test-pipe-bind-error.c
+        ${LIBUVDIR}/test/test-pipe-close-stdout-read-stdin.c
         ${LIBUVDIR}/test/test-pipe-connect-error.c
+        ${LIBUVDIR}/test/test-pipe-connect-multiple.c
         ${LIBUVDIR}/test/test-pipe-connect-prepare.c
         ${LIBUVDIR}/test/test-pipe-getsockname.c
+        ${LIBUVDIR}/test/test-pipe-pending-instances.c
         ${LIBUVDIR}/test/test-pipe-sendmsg.c
         ${LIBUVDIR}/test/test-pipe-server-close.c
-        ${LIBUVDIR}/test/test-pipe-close-stdout-read-stdin.c
         ${LIBUVDIR}/test/test-pipe-set-non-blocking.c
         ${LIBUVDIR}/test/test-platform-output.c
-        ${LIBUVDIR}/test/test-poll.c
         ${LIBUVDIR}/test/test-poll-close.c
+        ${LIBUVDIR}/test/test-poll.c
         ${LIBUVDIR}/test/test-process-title.c
+        ${LIBUVDIR}/test/test-queue-foreach-delete.c
         ${LIBUVDIR}/test/test-ref.c
         ${LIBUVDIR}/test/test-run-nowait.c
         ${LIBUVDIR}/test/test-run-once.c
@@ -268,61 +278,59 @@ if(LIBUV_BUILD_TESTS)
         ${LIBUVDIR}/test/test-shutdown-close.c
         ${LIBUVDIR}/test/test-shutdown-eof.c
         ${LIBUVDIR}/test/test-shutdown-twice.c
-        ${LIBUVDIR}/test/test-signal.c
         ${LIBUVDIR}/test/test-signal-multiple-loops.c
+        ${LIBUVDIR}/test/test-signal.c
         ${LIBUVDIR}/test/test-socket-buffer-size.c
         ${LIBUVDIR}/test/test-spawn.c
-        ${LIBUVDIR}/test/test-fs-poll.c
         ${LIBUVDIR}/test/test-stdio-over-pipes.c
         ${LIBUVDIR}/test/test-tcp-bind-error.c
         ${LIBUVDIR}/test/test-tcp-bind6-error.c
-        ${LIBUVDIR}/test/test-tcp-close.c
         ${LIBUVDIR}/test/test-tcp-close-accept.c
         ${LIBUVDIR}/test/test-tcp-close-while-connecting.c
+        ${LIBUVDIR}/test/test-tcp-close.c
         ${LIBUVDIR}/test/test-tcp-connect-error-after-write.c
-        ${LIBUVDIR}/test/test-tcp-shutdown-after-write.c
-        ${LIBUVDIR}/test/test-tcp-flags.c
         ${LIBUVDIR}/test/test-tcp-connect-error.c
         ${LIBUVDIR}/test/test-tcp-connect-timeout.c
         ${LIBUVDIR}/test/test-tcp-connect6-error.c
+        ${LIBUVDIR}/test/test-tcp-create-socket-early.c
+        ${LIBUVDIR}/test/test-tcp-flags.c
+        ${LIBUVDIR}/test/test-tcp-oob.c
         ${LIBUVDIR}/test/test-tcp-open.c
-        ${LIBUVDIR}/test/test-tcp-write-to-half-open-connection.c
-        ${LIBUVDIR}/test/test-tcp-write-after-connect.c
-        ${LIBUVDIR}/test/test-tcp-writealot.c
-        ${LIBUVDIR}/test/test-tcp-write-fail.c
+        ${LIBUVDIR}/test/test-tcp-read-stop.c
+        ${LIBUVDIR}/test/test-tcp-shutdown-after-write.c
         ${LIBUVDIR}/test/test-tcp-try-write.c
         ${LIBUVDIR}/test/test-tcp-unexpected-read.c
-        ${LIBUVDIR}/test/test-tcp-oob.c
-        ${LIBUVDIR}/test/test-tcp-read-stop.c
+        ${LIBUVDIR}/test/test-tcp-write-after-connect.c
+        ${LIBUVDIR}/test/test-tcp-write-fail.c
         ${LIBUVDIR}/test/test-tcp-write-queue-order.c
-        ${LIBUVDIR}/test/test-threadpool.c
-        ${LIBUVDIR}/test/test-threadpool-cancel.c
+        ${LIBUVDIR}/test/test-tcp-write-to-half-open-connection.c
+        ${LIBUVDIR}/test/test-tcp-writealot.c
         ${LIBUVDIR}/test/test-thread-equal.c
-        ${LIBUVDIR}/test/test-mutexes.c
         ${LIBUVDIR}/test/test-thread.c
-        ${LIBUVDIR}/test/test-barrier.c
-        ${LIBUVDIR}/test/test-condvar.c
+        ${LIBUVDIR}/test/test-threadpool-cancel.c
+        ${LIBUVDIR}/test/test-threadpool.c
         ${LIBUVDIR}/test/test-timer-again.c
         ${LIBUVDIR}/test/test-timer-from-check.c
         ${LIBUVDIR}/test/test-timer.c
+        ${LIBUVDIR}/test/test-tmpdir.c
         ${LIBUVDIR}/test/test-tty.c
         ${LIBUVDIR}/test/test-udp-bind.c
+        ${LIBUVDIR}/test/test-udp-create-socket-early.c
         ${LIBUVDIR}/test/test-udp-dgram-too-big.c
         ${LIBUVDIR}/test/test-udp-ipv6.c
+        ${LIBUVDIR}/test/test-udp-multicast-interface.c
+        ${LIBUVDIR}/test/test-udp-multicast-interface6.c
+        ${LIBUVDIR}/test/test-udp-multicast-join.c
+        ${LIBUVDIR}/test/test-udp-multicast-join6.c
+        ${LIBUVDIR}/test/test-udp-multicast-ttl.c
         ${LIBUVDIR}/test/test-udp-open.c
         ${LIBUVDIR}/test/test-udp-options.c
         ${LIBUVDIR}/test/test-udp-send-and-recv.c
         ${LIBUVDIR}/test/test-udp-send-immediate.c
         ${LIBUVDIR}/test/test-udp-send-unreachable.c
-        ${LIBUVDIR}/test/test-udp-multicast-join.c
-        ${LIBUVDIR}/test/test-udp-multicast-join6.c
-        ${LIBUVDIR}/test/test-dlerror.c
-        ${LIBUVDIR}/test/test-udp-multicast-ttl.c
-        ${LIBUVDIR}/test/test-ip4-addr.c
-        ${LIBUVDIR}/test/test-ip6-addr.c
-        ${LIBUVDIR}/test/test-udp-multicast-interface.c
-        ${LIBUVDIR}/test/test-udp-multicast-interface6.c
         ${LIBUVDIR}/test/test-udp-try-send.c
+        ${LIBUVDIR}/test/test-walk-handles.c
+        ${LIBUVDIR}/test/test-watcher-cross-stop.c
         )
 
     if(WIN32)
@@ -350,8 +358,15 @@ if(LIBUV_BUILD_TESTS)
     target_link_libraries(run-tests uv)
 
     set(BENCHMARK_SOURCES
-        ${LIBUVDIR}/test/benchmark-async.c
+        ${LIBUVDIR}/test/blackhole-server.c
+        ${LIBUVDIR}/test/dns-server.c
+        ${LIBUVDIR}/test/echo-server.c
+        ${LIBUVDIR}/test/run-benchmarks.c
+        ${LIBUVDIR}/test/runner.c
+        ${LIBUVDIR}/test/runner.h
+        ${LIBUVDIR}/test/task.h
         ${LIBUVDIR}/test/benchmark-async-pummel.c
+        ${LIBUVDIR}/test/benchmark-async.c
         ${LIBUVDIR}/test/benchmark-fs-stat.c
         ${LIBUVDIR}/test/benchmark-getaddrinfo.c
         ${LIBUVDIR}/test/benchmark-list.h
@@ -364,16 +379,9 @@ if(LIBUV_BUILD_TESTS)
         ${LIBUVDIR}/test/benchmark-pump.c
         ${LIBUVDIR}/test/benchmark-sizes.c
         ${LIBUVDIR}/test/benchmark-spawn.c
-        ${LIBUVDIR}/test/benchmark-thread.c
         ${LIBUVDIR}/test/benchmark-tcp-write-batch.c
+        ${LIBUVDIR}/test/benchmark-thread.c
         ${LIBUVDIR}/test/benchmark-udp-pummel.c
-        ${LIBUVDIR}/test/dns-server.c
-        ${LIBUVDIR}/test/echo-server.c
-        ${LIBUVDIR}/test/blackhole-server.c
-        ${LIBUVDIR}/test/run-benchmarks.c
-        ${LIBUVDIR}/test/runner.c
-        ${LIBUVDIR}/test/runner.h
-        ${LIBUVDIR}/test/task.h
         )
 
     if(WIN32)
