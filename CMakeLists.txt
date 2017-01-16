@@ -59,7 +59,7 @@ if(WIN32)
         ${LIBUVDIR}/src/win/winapi.c
         ${LIBUVDIR}/src/win/winapi.h
         ${LIBUVDIR}/src/win/winsock.c
-        ${LIBUVDIR}/src/win/winsock.h    
+        ${LIBUVDIR}/src/win/winsock.h
         )
 
     add_library(uv ${SOURCES})
@@ -161,7 +161,18 @@ else()
     if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "DragonFlyBSD" OR
             ${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
         set (SOURCES ${SOURCES}
-            src/unix/kqueue.c
+            ${LIBUVDIR}/src/unix/kqueue.c
+            )
+    endif()
+
+    if (${CMAKE_SYSTEM_NAME} MATCHES "Android")
+        set (SOURCES ${SOURCES}
+            ${LIBUVDIR}/include/android-ifaddrs.h
+            ${LIBUVDIR}/include/pthread-fixes.h
+            #${LIBUVDIR}/include/pthread-barrier.h   ## since 1.10 `fixes` renamed to `barrier`
+            ${LIBUVDIR}/src/unix/android-ifaddrs.c
+            ${LIBUVDIR}/src/unix/pthread-fixes.c
+            #${LIBUVDIR}/src/unix/pthread-barrier.c  ## since 1.10 `fixes` renamed to `barrier`
             )
     endif()
 
