@@ -59,7 +59,7 @@ if(WIN32)
         ${LIBUVDIR}/src/win/winapi.c
         ${LIBUVDIR}/src/win/winapi.h
         ${LIBUVDIR}/src/win/winsock.c
-        ${LIBUVDIR}/src/win/winsock.h    
+        ${LIBUVDIR}/src/win/winsock.h
         )
 
     add_library(uv ${SOURCES})
@@ -161,7 +161,7 @@ else()
     if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "DragonFlyBSD" OR
             ${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
         set (SOURCES ${SOURCES}
-            src/unix/kqueue.c
+            ${LIBUVDIR}/src/unix/kqueue.c
             )
     endif()
 
