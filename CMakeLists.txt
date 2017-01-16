@@ -114,7 +114,7 @@ else()
         add_definitions(-Wstrict-aliasing)
     endif()
 
-    if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    if ((${CMAKE_SYSTEM_NAME} MATCHES "Linux") OR (${CMAKE_SYSTEM_NAME} MATCHES "Android"))
         add_definitions(-D_GNU_SOURCE -D_POSIX_C_SOURCE=200112)
         set(SOURCES ${SOURCES}
             ${LIBUVDIR}/src/unix/proctitle.c
