@@ -64,7 +64,8 @@ if(WIN32)
 
     add_library(uv ${SOURCES})
 else()
-    add_definitions(-g --std=gnu89 -pedantic -Wall -Wextra -Wno-unused-parameter -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g --std=gnu89 -pedantic -Wall -Wextra -Wno-unused-parameter")
+    add_definitions(-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64)
     include_directories(${LIBUVDIR}/src/unix)
     set(SOURCES ${SOURCES}
         ${LIBUVDIR}/include/uv-unix.h
