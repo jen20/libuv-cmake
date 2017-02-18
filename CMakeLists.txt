@@ -29,6 +29,7 @@ if(WIN32)
         ${LIBUVDIR}/src/win/async.c
         ${LIBUVDIR}/src/win/atomicops-inl.h
         ${LIBUVDIR}/src/win/core.c
+		${LIBUVDIR}/src/win/detect-wakeup.c
         ${LIBUVDIR}/src/win/dl.c
         ${LIBUVDIR}/src/win/error.c
         ${LIBUVDIR}/src/win/fs.c
