@@ -24,8 +24,6 @@ set(SOURCES
 
 if(WIN32)
     add_definitions(-D_WIN32_WINNT=0x0600 -D_GNU_SOURCE)
-    add_definitions(-ladvapi32 -liphlpapi -lpsapi -luserenv -lshell32 -lws2_32)
-    include_directories(${LIBUVDIR}/src/win)
     set (SOURCES ${SOURCES}
         ${LIBUVDIR}/include/uv-win.h
         ${LIBUVDIR}/src/win/async.c
@@ -63,6 +61,7 @@ if(WIN32)
         )
 
     add_library(uv ${SOURCES})
+	target_link_libraries(uv advapi32 iphlpapi psapi userenv shell32 ws2_32)
 else()
     add_definitions(-g --std=gnu89 -pedantic -Wall -Wextra -Wno-unused-parameter -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64)
     include_directories(${LIBUVDIR}/src/unix)
