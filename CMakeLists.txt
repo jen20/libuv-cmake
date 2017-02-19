@@ -23,14 +23,13 @@ set(SOURCES
     )
 
 if(WIN32)
-    add_definitions(-D_WIN32_WINNT=0x0600 -D_GNU_SOURCE)
-    add_definitions(-ladvapi32 -liphlpapi -lpsapi -luserenv -lshell32 -lws2_32)
-    include_directories(${LIBUVDIR}/src/win)
+  add_definitions(-D_WIN32_WINNT=0x0600 -D_GNU_SOURCE -D_CRT_SECURE_NO_WARNINGS)
     set (SOURCES ${SOURCES}
         ${LIBUVDIR}/include/uv-win.h
         ${LIBUVDIR}/src/win/async.c
         ${LIBUVDIR}/src/win/atomicops-inl.h
         ${LIBUVDIR}/src/win/core.c
+		${LIBUVDIR}/src/win/detect-wakeup.c
         ${LIBUVDIR}/src/win/dl.c
         ${LIBUVDIR}/src/win/error.c
         ${LIBUVDIR}/src/win/fs.c
@@ -63,6 +62,7 @@ if(WIN32)
         )
 
     add_library(uv ${SOURCES})
+	target_link_libraries(uv advapi32 iphlpapi psapi userenv shell32 ws2_32)
 else()
     add_definitions(-g --std=gnu89 -pedantic -Wall -Wextra -Wno-unused-parameter -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64)
     include_directories(${LIBUVDIR}/src/unix)
