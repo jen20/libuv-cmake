@@ -103,6 +103,7 @@ else()
             ${LIBUVDIR}/src/unix/kqueue.c
             ${LIBUVDIR}/src/unix/darwin.c
             ${LIBUVDIR}/src/unix/fsevents.c
+	    ${LIBUVDIR}/src/unix/pthread-barrier.c
             ${LIBUVDIR}/src/unix/darwin-proctitle.c
             )
 
