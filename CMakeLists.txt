@@ -170,11 +170,9 @@ else()
     if (${CMAKE_SYSTEM_NAME} MATCHES "Android")
         set (SOURCES ${SOURCES}
             ${LIBUVDIR}/include/android-ifaddrs.h
-            ${LIBUVDIR}/include/pthread-fixes.h
-            #${LIBUVDIR}/include/pthread-barrier.h   ## since 1.10 `fixes` renamed to `barrier`
+            ${LIBUVDIR}/include/pthread-barrier.h
             ${LIBUVDIR}/src/unix/android-ifaddrs.c
-            ${LIBUVDIR}/src/unix/pthread-fixes.c
-            #${LIBUVDIR}/src/unix/pthread-barrier.c  ## since 1.10 `fixes` renamed to `barrier`
+            ${LIBUVDIR}/src/unix/pthread-barrier.c
             )
     endif()
 
