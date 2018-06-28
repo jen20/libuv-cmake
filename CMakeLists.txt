@@ -59,6 +59,7 @@ if(WIN32)
         ${LIBUVDIR}/src/win/winapi.h
         ${LIBUVDIR}/src/win/winsock.c
         ${LIBUVDIR}/src/win/winsock.h
+	${LIBUVDIR}/src/win/snprintf.c
         )
 
     add_library(uv ${SOURCES})
