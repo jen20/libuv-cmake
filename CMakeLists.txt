@@ -8,10 +8,12 @@ set(LIBUVDIR libuv)
 include_directories(${LIBUVDIR}/include ${LIBUVDIR}/src)
 set(SOURCES
     ${LIBUVDIR}/include/uv.h
-    ${LIBUVDIR}/include/tree.h
-    ${LIBUVDIR}/include/uv-errno.h
-    ${LIBUVDIR}/include/uv-threadpool.h
-    ${LIBUVDIR}/include/uv-version.h
+    ${LIBUVDIR}/include/uv/tree.h
+    ${LIBUVDIR}/include/uv/errno.h
+    ${LIBUVDIR}/include/uv/threadpool.h
+    ${LIBUVDIR}/include/uv/version.h
+	${LIBUVDIR}/include/uv/os390.h
+	${LIBUVDIR}/include/uv/threadpool.h
     ${LIBUVDIR}/src/fs-poll.c
     ${LIBUVDIR}/src/heap-inl.h
     ${LIBUVDIR}/src/inet.c
@@ -25,7 +27,8 @@ set(SOURCES
 if(WIN32)
   add_definitions(-D_WIN32_WINNT=0x0600 -D_GNU_SOURCE -D_CRT_SECURE_NO_WARNINGS)
     set (SOURCES ${SOURCES}
-        ${LIBUVDIR}/include/uv-win.h
+        ${LIBUVDIR}/include/uv/win.h
+		${LIBUVDIR}/include/uv/stdint-msvc2008.h
         ${LIBUVDIR}/src/win/async.c
         ${LIBUVDIR}/src/win/atomicops-inl.h
         ${LIBUVDIR}/src/win/core.c
@@ -52,14 +55,13 @@ if(WIN32)
         ${LIBUVDIR}/src/win/stream-inl.h
         ${LIBUVDIR}/src/win/tcp.c
         ${LIBUVDIR}/src/win/tty.c
-        ${LIBUVDIR}/src/win/timer.c
         ${LIBUVDIR}/src/win/udp.c
         ${LIBUVDIR}/src/win/util.c
         ${LIBUVDIR}/src/win/winapi.c
         ${LIBUVDIR}/src/win/winapi.h
         ${LIBUVDIR}/src/win/winsock.c
         ${LIBUVDIR}/src/win/winsock.h
-	${LIBUVDIR}/src/win/snprintf.c
+		${LIBUVDIR}/src/win/snprintf.c
         )
 
     add_library(uv ${SOURCES})
@@ -69,12 +71,15 @@ else()
     add_definitions(-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64)
     include_directories(${LIBUVDIR}/src/unix)
     set(SOURCES ${SOURCES}
-        ${LIBUVDIR}/include/uv-unix.h
-        ${LIBUVDIR}/include/uv-linux.h
-        ${LIBUVDIR}/include/uv-sunos.h
-        ${LIBUVDIR}/include/uv-darwin.h
-        ${LIBUVDIR}/include/uv-bsd.h
-        ${LIBUVDIR}/include/uv-aix.h
+        ${LIBUVDIR}/include/uv/unix.h
+        ${LIBUVDIR}/include/uv/linux.h
+        ${LIBUVDIR}/include/uv/sunos.h
+        ${LIBUVDIR}/include/uv/darwin.h
+        ${LIBUVDIR}/include/uv/bsd.h
+        ${LIBUVDIR}/include/uv/aix.h
+		${LIBUVDIR}/include/uv/android-ifaddrs.h
+		${LIBUVDIR}/include/uv/posix.h
+		${LIBUVDIR}/include/uv/pthread-barrier.h
         ${LIBUVDIR}/src/unix/async.c
         ${LIBUVDIR}/src/unix/atomic-ops.h
         ${LIBUVDIR}/src/unix/core.c
@@ -93,7 +98,6 @@ else()
         ${LIBUVDIR}/src/unix/stream.c
         ${LIBUVDIR}/src/unix/tcp.c
         ${LIBUVDIR}/src/unix/thread.c
-        ${LIBUVDIR}/src/unix/timer.c
         ${LIBUVDIR}/src/unix/tty.c
         ${LIBUVDIR}/src/unix/udp.c
         )
