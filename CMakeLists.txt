@@ -49,6 +49,7 @@ if(WIN32)
         ${LIBUVDIR}/src/win/req.c
         ${LIBUVDIR}/src/win/req-inl.h
         ${LIBUVDIR}/src/win/signal.c
+	${LIBUVDIR}/src/win/snprintf.c
         ${LIBUVDIR}/src/win/stream.c
         ${LIBUVDIR}/src/win/stream-inl.h
         ${LIBUVDIR}/src/win/tcp.c
